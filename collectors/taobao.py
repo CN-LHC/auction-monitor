@@ -471,6 +471,10 @@ class TaobaoCollector(BaseCollector):
                 if not self._is_real_auction_item(item):
                     continue
 
+                # 已结束的拍品不进入汇总和钉钉上报结果。
+                if item.get("status") == "end":
+                    continue
+
                 auctions.append(
                     self._parse_item(
                         item,
