@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 
 from models.auction import Auction
 
@@ -17,7 +17,7 @@ class AuctionFormatter:
         self,
         all_results: dict[str, dict[str, list[Auction]]],
     ) -> str:
-        now = datetime.now()
+        now = datetime.now(timezone(timedelta(hours=8)))
         total = sum(
             len(auctions)
             for keyword_results in all_results.values()
@@ -27,7 +27,7 @@ class AuctionFormatter:
         lines = [
             f"## {self.title}",
             "",
-            f"> 采集时间：{now:%Y-%m-%d %H:%M}",
+            f"> 采集时间：{now:%Y-%m-%d %H:%M}（北京时间）",
             f"> 共获取：**{total}** 条",
             "",
         ]
