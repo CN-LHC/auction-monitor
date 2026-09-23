@@ -472,7 +472,7 @@ class TaobaoCollector(BaseCollector):
                     continue
 
                 # 已结束的拍品不进入汇总和钉钉上报结果。
-                if item.get("status") == "end":
+                if self._is_ended_auction(item):
                     continue
 
                 auctions.append(
@@ -494,11 +494,21 @@ class TaobaoCollector(BaseCollector):
         )
 
     @staticmethod
+    def _is_ended_auction(item: dict) -> bool:
+        # 接口也会用 pause 表示历史拍品，需同时检查结束文案。
+        return (
+            item.get("status") == "end"
+            or str(item.get("timeSuffix") or "").strip() == "已结束"
+            or str(item.get("feetText") or "").strip().endswith("已结束")
+        )
+
+    @staticmethod
     def _format_status(item: dict) -> str:
         status = item.get("status")
 
         status_map = {
             "before": "即将开始",
+            "ing": "正在进行",
             "doing": "正在进行",
             "end": "已结束",
         }
