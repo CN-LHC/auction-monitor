@@ -1,13 +1,11 @@
 name: Auction Monitor
 
 on:
-  # 允许在 GitHub 页面手动执行
   workflow_dispatch:
 
 jobs:
   monitor:
     runs-on: ubuntu-latest
-
     timeout-minutes: 30
 
     env:
@@ -26,11 +24,11 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v7
 
-      - name: Install Python dependencies
+      - name: Install dependencies
         run: uv sync
 
       - name: Install Playwright Chromium
         run: uv run playwright install --with-deps chromium
 
       - name: Run auction monitor
-        run: uv run main.py
+        run: xvfb-run -a uv run main.py

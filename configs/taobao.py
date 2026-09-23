@@ -2,8 +2,8 @@
 Author: liuhanchuan 1005293916
 Date: 2026-09-23 06:57:52
 LastEditors: liuhanchuan 1005293916
-LastEditTime: 2026-09-23 15:40:25
-FilePath: /auction-monitor-dingtalk/configs/taobao.py
+LastEditTime: 2026-09-23 16:20:16
+FilePath: /auction-monitor/configs/taobao.py
 Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 '''
 from dataclasses import dataclass
@@ -21,7 +21,7 @@ class TaobaoConfig:
     city: str = "武汉"
     district: str = "洪山"
     location_code: str = "420111"
-    headless: bool = True
+    headless: bool = False
     navigation_timeout_ms: int = 60_000
     action_timeout_ms: int = 10_000
     response_timeout_ms: int = 30_000
